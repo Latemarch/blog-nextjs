@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import "./globals.css";
 import { Inter } from "next/font/google";
 
@@ -16,12 +17,12 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<div className="fixed flex inset-0 bg-white dark:bg-black sm:px-8">
-					<div className="w-full max-w-7xl lg:px-8 bg-amber-50"></div>
+				<div className="fixed flex inset-0 bg-white dark:bg-black sm:px-8 justify-center">
+					<div className="w-full max-w-7xl lg:px-8 bg-zinc-100 mx"></div>
 				</div>
-				<div className="relative main w-full h-full sm:px-8">
-					<div className="w-full max-w-7xl lg:px-8">
-						<div className="text-3xl">header</div>
+				<div className="relative flex w-full h-full sm:px-8 justify-center">
+					<div className="w-full px-8 max-w-5xl lg:px-16">
+						<Header />
 						{children}
 					</div>
 				</div>

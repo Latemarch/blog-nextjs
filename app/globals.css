@@ -2,5 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+	@screen sm {
+		.columns-2-sm {
+			column-count: 2;
+			column-gap: 30px;
+		}
+	}
+}
+
 body {
 }
