@@ -1,0 +1,47 @@
+{
+  "blog": {
+    "body": "이번 프로젝트는 지금 이 페이지를 담고 있는 웹을 만드는 프로젝트로써 포트폴리오와 블로그 기능을 수행 할 수 있는 개인 웹사이트를 리액트를 사용하여 만드는 일이다. 이곳에 개발과 공부를 하면서 얻은 결과물과 노트를 담는다. 이를 위해 리액트 외에 클라이언트 쪽의 전역 상태를 관리하기 위해 Redux를 사용하였으며 서버쪽 비동기 데이터를 관리하기 위해 React-Query를 사용하으며 서버는 firebase를 통해 구축했다.\n\n# Stacks\nReact & typescript : 프로젝트 구성.\n    \nRedux : Client-side 전역 상태를 관리한다. \n\nReact-Query: Server-side 비동기 상태를 관리한다.\n\nfirebase: 서버 구축\n\n\n# 프로젝트 구성\n\n해당 프로젝트는 Home, Posts, 그리고 Projects 페이지로 구성되어 있으며 각 이름에 맞게 Home 페이지에는 웹의 개요, Posts 페이지에는 포스트를 모아 블로그 기능을 하며 Projects 페이지에는 포트폴리오를 구성해 놓았다. 또한 admin권한을 얻으면 Edit 페이지가 추가되어 웹의 컨텐츠를 추가,수정,삭제할 수 있으며 이 데이터들은 firebase에 저장되어 서버 안에서 관리된다. \n\nHeader component\n> Scroll Header :  사용자 스크롤에 반응하여 나타나며 숨는다.\n\nHome page\n> 블로그에 대한 간단한 소개글과 블로그에 담긴 컨텐츠를 간략하게 나타낸다. \n\nPosts page\n> 사용자가 블로그 내용을 볼 수 있으며, 필터링 기능을 추가하여 프로젝트 목록을 동적으로 렌더링하여 사용자가 관심 있는 주체를 표시한다.\n> 각 `Post Card`는 글의 제목, 작성날짜, 간략한 설명을 제공하며 유저는 해당 카드를 클릭하여 해당 포스트에 대한 상세 페이지로 이동할 수 있다. \n> 관리자 권한을 얻은 사용자의 경우 해당 포스트를 수정, 삭제 할 수 있다. \n\nProjects page\n> Posts page와 마찬가지로 각 `Project card`는 프로젝트의 간략한 정모가 담겨 있으며 유저는 해당 가드를 클릭하여 상세페이지로 이동할 수 있다. \n\n# 주요기능\n반응형 웹 디자인 : 반응형 디자인으로 구성된 블로그 프로젝트는 모바일, 태블릿, 데스크톱 등 다영한 디바이스에서 최적화된 사용자 경험을 제공하고자 노력하였다.\n\n다크모드 : 사용자가 웹의 테마를 전활 할 수 있도록 기능 구현. Tailwindcss와 Redux를 이용해 관리하며 React-helmet-async를 통해 html 태그를 조작하여 구현.\n\nClient side 상태 관리를 위한 Redux 사용: 웹의 주요 데이터라고 할 수 있는 post와 project에 관한 데이터를 이미 react-query에서 관리하고 있기 때문에 해당 규모에서 Redux의 관리가 필요한 전역 상태는 거의 없다. 관리할 전역상태가 많지 않음에도 리덕스의 Reducer방식은 상태 관리를 명료하게 해주는 이점이 있었다. \n\n비동기 상태 관리를 위한 React-query사용: 서버에 와의 통신에서 최신데이터를 관리하고 불필요한 데이터 요청을 막을 수 있다. 이번 프로젝트에서는 컴포넌트 간 데이터 동기화에 많은 이점을 보았다.\n\n# Details\n### 프로젝트 구성\n각 페이지를 먼저 구성하고 그에 필요한 요소들을 컴포넌트로 만들었으며 로직이 커지는 특정 페이지나 컴포넌트는 container를 구성하여 컨테이너에서 비지니스 로직을 처리하고 컴포넌트에서 렌더링을 하는 방식으로 만들었다.\n```\n📦src\n ┣ 📂components\n ┃ ┣ 📜Button.tsx\n ┃ ┣ 📜Footer.tsx\n ┃ ┣ 📜Header.tsx\n ┃ ┣ 📜HeaderScroll.tsx\n ┃ ┣ 📜Icon.tsx\n ┃ ┣ 📜Login.tsx\n ┃ ┣ 📜Modal.tsx\n ┃ ┣ 📜Nav.tsx\n ┃ ┣ 📜PostCard.tsx\n ┃ ┣ 📜ProjectCard.tsx\n ┃ ┗ 📜Tag.tsx\n ┣ 📂containers\n ┃ ┣ 📜EditPostContainer.tsx\n ┃ ┣ 📜EditProjectContainer.tsx\n ┃ ┣ 📜PostContainer.tsx\n ┃ ┗ 📜PostsContainer.tsx\n ┣ 📂hooks\n ┃ ┣ 📜usePost.ts\n ┃ ┗ 📜useProject.ts\n ┣ 📂pages\n ┃ ┣ 📜EditPost.tsx\n ┃ ┣ 📜EditProject.tsx\n ┃ ┣ 📜Home.tsx\n ┃ ┣ 📜Post.tsx\n ┃ ┣ 📜Posts.tsx\n ┃ ┣ 📜Project.tsx\n ┃ ┗ 📜Projects.tsx\n ┣ 📂redux\n ┃ ┣ 📂slices\n ┃ ┃ ┣ 📜darkModeSlice.ts\n ┃ ┃ ┗ 📜userSlice.ts\n ┃ ┗ 📜store.ts\n ┣ 📂svgs\n ┃ ┣ 📜firebase.svg\n ┃ ┣ 📜query.svg\n ┃ ┣ 📜react.svg\n ┃ ┣ 📜redux.svg\n ┃ ┗ 📜ts.svg\n ┣ 📂utils\n ┃ ┣ 📜Firebase.ts\n ┃ ┗ 📜functions.ts\n ┣ 📜App.css\n ┣ 📜App.tsx\n ┣ 📜defaultvalues.ts\n ┣ 📜index.css\n ┣ 📜index.tsx\n ┣ 📜react-app-env.d.ts\n ┗ 📜type.d.ts\n```\n### styling\nTailwindcss를 이용했다. 자유도는 조금 떨어지지만 색감이나 화면과 컴포넌트 간 스케일을 조절하는데 많이 도움이 된다. `hover:`, `focus:`등을 이용하여 동적인 스타일링이도 가능하여 `dark:`를 이용하여 다크모드도 쉽게 구현할 수 있었다. 또한 `sm:`, `md:`, `lg:`등을 이용해 스크린 크기에 비래에 동적 스타일링도 지원하여 미디어쿼리도 간편하게 구현할 수 있었다. Tailwindcss를 이용한다 하더라도 디자인적 요소를 모두 구성하기엔 능력도 시간도 부족하므로 <a src='https://spotlight.tailwindui.com/'>다른 사이트</a>를 클론하였다. \n\n### 상태 관리 툴\n이 프로젝트에서는 전역 상태를 client와 server, 둘로 나눠 관리 했다. react-query 하나로 상태관리를 할 수도 있었지만 이는 react-query의 용도와도 맞지 않을 뿐더러 앞으로 해당 프로젝트가 개인적 용도로 쓰는 웹이지만 결국 앞으로의 프로젝트 규모를 염두해야 하므로 스택을 구분하여 사용할 필요가 있다고 생각했기 때문이다. \n상태 관리툴은 여러가지가 있고 관리해야할 전역 상태가 많지 않으므로 리액트에서 기본으로 제공하는 상태관리 툴인 Context Api가 적당할 것이다. 해당 프로젝트의 복잡성이 높지 않고 보일러 플레이트도 적기 떄문이다. 하지만 리덕스를 사용하면서 상태관리를 이해하고 전역상태의 보호성도 높이면서 실수를 최소화 할수 있다.\n```js\nexport default configureStore({\n\treducer: {\n\t\tuser: userReducer, //\n\t\tfilter: filterReducer,\n\t\tdarkMode: darkModeReducer,\n\t},\n});\n\n```\n### Custom hooks 사용\n비동기 데이터를 가지고 오거나 수정, 삭제 함에 있어 컴포넌트 간 동기화가 제대로 되지 않아 데이터가 혼란스럽게 퍼져있는 느낌을 받아 프로젝트가 전반적으로 산만한 느낌을 주었다. 더욱이 react-query는 `key`를 통해 데이터 fetching을 결정하기 때문에 fetching로직이 컴포넌트 이곳저곳에 퍼져있으면 유지보수에도 좋지 않을뿐더러 프로젝트를 이해하기에 어려움이 따른다. 이떄문에 fetching로직을 한곳에서 관리할 필요성이 있었다. 이에 custom hook인 `useProject`와 `usePost`를 만들어 각 데이터를 관리하는 훅을 하나로 만들어 필요한 컴포넌드에서 불러와 사용하였다. \n```js\nexport default function useProject(id?: string) {\n\tconst queryClient = useQueryClient();\n\n\tconst projectQuery = useQuery([\"projects\"], () => getItems(\"projects\"), {\n\t\tstaleTime: 1000 * 6 * 5,\n\t});\n\n\tconst getProject = useQuery([\"projects\", id], () => getItem(id, \"projects\"), {\n\t\tstaleTime: 1000 * 60 * 5,\n\t});\n  \n    ///////\n    ///////\n  \n  \treturn { projectQuery, getProject, addProject, updateProject, removeProject };\n}\n\n  ```\n### firebase 서버\n  백엔드 스택이 없어서 서버 구축에 어려움이 있으므로 플렛폼을 사용하기로 했다. 파이어베이스 기능중에는 admin권한을 얻기위한 인증 기능과 데이터베이스만 사용했다.\n",
+    "category": "projects",
+    "createdAt": 1680684398244,
+    "detail": "개인 용도의 블로깅, 포르폴리오 게시를 위한 블로그. 게시물 게시와 관리 기능 구현.\n",
+    "git": "https://github.com/Latemarch/blog",
+    "id": "blog",
+    "published": "https://latemarch.netlify.app/",
+    "stacks": [
+      "TS",
+      "Query",
+      "Redux",
+      "FB"
+    ],
+    "title": "Blog"
+  },
+  "todolist": {
+    "body": "이 프로젝트는 학원에서 그룹 프로젝트 전 마지막 과제로 crud가 작동하는 todolist app을 과제로 줘서 firebase를 이용한 리액트 앱을 만들었다. todolist app은 토이프로젝트로 두어번 만들어본 경험이 있기 때문에 이번 프로젝트는 시간을 정하고 시간내에 만드는 것을 목표로 만들어보았다. \n![](https://velog.velcdn.com/images/latemarch/post/c04259f5-3e9b-4861-8b9b-f8078ca6ad23/image.png)\n\n# Stacks\nReact & typescript : 프로젝트 구성.\n    \nRedux : Client-side 전역 상태를 관리한다. \n\nReact-Query: Server-side 비동기 상태를 관리한다.\n\nfirebase: 서버 구축\n\n\n# 프로젝트 구성\n\n해당 프로젝트는 `header`를 포함한 페이지 하나에 리스트를 표시한다. 헤더안에는 `Add` 요소를 넣었으며 `Add`요소를 클릭하면 `input`컴포넌트가 모달로 표시된다. \n![](https://velog.velcdn.com/images/latemarch/post/0ec28293-5ab0-461c-be24-d3f90103a202/image.png)\n\n모달에서 입력된 값은 firebase에 데이터로 추가된다. \n\n\n# 주요기능\n반응형 웹 디자인 : 반응형 디자인으로 구성된 블로그 프로젝트는 모바일, 태블릿, 데스크톱 등 다영한 디바이스에서 최적화된 사용자 경험을 제공하고자 노력하였다.\n\nClient side 상태 관리를 위한 Redux 사용: 모달 창을 제어하기 위해 사용\n\n비동기 상태 관리를 위한 React-query사용: 서버에 와의 통신에서 최신데이터를 관리하고 불필요한 데이터 요청을 막을 수 있다. 이번 프로젝트에서는 컴포넌트 간 데이터 동기화에 많은 이점을 보았다.\n\n# Details\n### 프로젝트 구성\n이번 앱을 만들 때, 요구사항이 몇가지 있었다.\n 1. crud 작동\n 2. redux 사용\n 3. 외부 서버 사용\n\n```\n📦src\n ┣ 📂components\n ┃ ┣ 📜Button.tsx\n ┃ ┣ 📜ConfirmDelete.tsx\n ┃ ┣ 📜Header.tsx\n ┃ ┣ 📜Input.tsx\n ┃ ┣ 📜Modal.tsx\n ┃ ┣ 📜ToDoCard.tsx\n ┃ ┗ 📜ToDoList.tsx\n ┣ 📂hooks\n ┃ ┗ 📜useToDo.ts\n ┣ 📂redux\n ┃ ┣ 📂slices\n ┃ ┃ ┗ 📜modalSlice.ts\n ┃ ┗ 📜store.ts\n ┣ 📂utils\n ┃ ┗ 📜firebase.ts\n ┣ 📜App.css\n ┣ 📜App.test.tsx\n ┣ 📜App.tsx\n ┣ 📜MainPage.tsx\n ┣ 📜index.css\n ┗ 📜sindex.tsx\n```\n### styling\nTailwindcss를 사용함. 디자인은 이전에 만든 블로그의 디자인을 참고하여 반응형 앱으로 만들었다.\n\n### 상태 관리 툴\n모달창을 제어하기 위해 redux를 이용했다. 모달창은 props에 `children`을 받아 해당 컴포넌트의 container 역할을 한다. 모달창에 prop로 전달되는 컴포넌트는 `Input`과 `ConfirmDelete`가 있다. 각 컴포넌트는 리스트에 요소를 추가하고 요소를 삭제할 때 확인을 받는 일을 한다.\n\n\n### firebase 서버\nList는 firebase서버에서 관리된다.\n\n\n",
+    "category": "projects",
+    "createdAt": 1680684196902,
+    "detail": "CRUD가 작동하는 ToDoList app 만들기, 서버에 데이터를 저장하고 리덕스를 사용",
+    "git": "https://github.com/Latemarch/todo-homework",
+    "id": "todolist",
+    "published": "https://latemarch-todoapp.netlify.app",
+    "stacks": [
+      "TS",
+      "Query",
+      "FB",
+      "Redux"
+    ],
+    "title": "ToDoList"
+  },
+  "youtube-clone": {
+    "body": "유튜브 클론코딩은 토이 프로젝트를 제외하면 첫번째 리액트 프로젝트이다. 유튜브가 제공하는 api를 이용하여 유튜브 사이트의 데이터를 가지고 와 유튜브의 기능과 디자인을 클론했다. fetching 로직에 axios를 사용했다.\n![](https://velog.velcdn.com/images/latemarch/post/4de081ab-4285-4b0e-b075-9fdc1d774b29/image.png)\n\n\n# Stacks\nReact : 프로젝트 구성.\n    \naxios: data fetching\n\n# 프로젝트 구성\n\n해당 프로젝트는 홈 역할을 하는 `videos`page 에서 비디오들을 표시하며, 검색어가 없는 경우 인기비디오 목록을, 검색어가 있는 경우는 검색어에 해당하는 비디오 목록을 보여준다. 검색어에 해당하는 비디오들은 `video card`컴포넌트에 썸네일, 제목, 게시자와 날짜정보를 담고있으며 유저는 비디오 카드를 클릭하여 상제 페이지에 접근할 수 있다. 상세페이지는 비디오의 상세정보와 연관 비디오를 표시한다.  \n\n\nVideos page\n> 비디오 목록 표시 \n\nDetails page\n> 비디오, 비디오 정보, 연관비디오 표시 \n\n# 주요기능\n반응형 웹 디자인 : 반응형 디자인으로 구성된 블로그 프로젝트는 모바일, 태블릿, 데스크톱 등 다영한 디바이스에서 최적화된 사용자 경험을 제공하고자 노력하였다.\n\nYoutube api를 이용한 동기화: youtube사이트의 제공되는 데이터를 그대로 받아와 해당 프로젝트에서도 유튜브의 기능을 일부 구현함.\n\n\n# Details\n### 프로젝트 구성\n각 페이지를 먼저 구성하고 그에 필요한 요소들을 컴포넌트로 만들었으며 로직이 커지는 특정 페이지나 컴포넌트는 container를 구성하여 컨테이너에서 비지니스 로직을 처리하고 컴포넌트에서 렌더링을 하는 방식으로 만들었다.\n```\n📦Youtube\n ┣ 📂Components\n ┃ ┣ 📜VideoCard.jsx\n ┃ ┗ 📜YoutubeHeader.jsx\n ┣ 📂apis\n ┃ ┗ 📜youtubeApi.js\n ┣ 📂pages\n ┃ ┣ 📜Details.jsx\n ┃ ┣ 📜NotFound.jsx\n ┃ ┗ 📜Videos.jsx\n ┣ 📜AppYoutube.jsx\n ┣ 📜index.css\n ┣ 📜index.jsx\n ┗ 📜package-lock.json\n```\n\n### styling\nTailwindcss를 이용했다. 자유도는 조금 떨어지지만 색감이나 화면과 컴포넌트 간 스케일을 조절하는데 많이 도움이 된다. \n\n# 마치며\n이번 프로젝트는 첫번째 웹 페이지 구현으로 그 기능이 많이 제한적이다. 하지만 리액트의 기본적인 기능을 익히는데 집중했으며 공개된 api를 이용해 봤다.\n",
+    "category": "projects",
+    "createdAt": 1680684019961,
+    "detail": "Youtube api를 이용한 Youtube 클론코딩. 인기 목록, 검색기능과 상세페이지 구현.",
+    "git": "https://github.com/Latemarch/ReactAppProjects",
+    "id": "youtube-clone",
+    "published": "https://latemarch-projects.netlify.app/youtube",
+    "stacks": [
+      "React"
+    ],
+    "title": "Youtube Clone"
+  }
+}
