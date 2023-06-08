@@ -7,11 +7,7 @@ export default function PostList({ posts }: Props) {
 	return (
 		<ul>
 			{posts &&
-				posts.map((post: IPost) => (
-					<li key={post.id}>
-						<PostCard post={post} />
-					</li>
-				))}
+				posts.map((post: IPost) => <PostCard key={post.id} post={post} />)}
 		</ul>
 	);
 }

@@ -48,6 +48,7 @@ export interface IProj {
 export interface IPost {
 	category: string;
 	id: string;
+	description: string;
 	author: string;
 	title: string;
 	body: string;

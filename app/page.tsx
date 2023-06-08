@@ -6,6 +6,7 @@ import {
 } from "react-icons/ai";
 import { getAllPosts } from "@/service/posts";
 import PostList from "@/components/PostList";
+import PostCard from "@/components/PostCard";
 export default async function Home() {
 	const posts = await getAllPosts(3);
 	return (
@@ -49,9 +50,5 @@ export default async function Home() {
 				</ul>
 			</div>
 		</div>
-		// <div className="w-full h-full home text-white text-justify">
-		// 	<h1 className="text-3xl">Motivation</h1>
-		// 	<span className="text-xl">dljwldj</span>
-		// </div>
 	);
 }

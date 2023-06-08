@@ -1,6 +1,7 @@
 import { BsChevronRight } from "react-icons/bs";
 import { IPostCard } from "../type";
 import Link from "next/link";
+import { extractTextFromMarkdown } from "@/service/functions";
 
 export default function PostCard({ post }: IPostCard) {
 	return (
@@ -18,7 +19,7 @@ export default function PostCard({ post }: IPostCard) {
 								{post.title}
 							</h1>
 							<span className="line-clamp-3 text-zinc-600 dark:text-zinc-400">
-								{post.body}
+								{post.description}
 							</span>
 						</div>
 						<div className="pt-2 flex items-center text-green-500 dark:text-green-300 ">

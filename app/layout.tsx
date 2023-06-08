@@ -28,7 +28,7 @@ export default function RootLayout({
 						<HeaderScroll height={100}>
 							<Header />
 						</HeaderScroll>
-						<div className="mx-auto mt-28 max-w-2xl lg:max-w-5xl text-white h-full ">
+						<div className="m-auto mt-28 max-w-2xl lg:max-w-5xl text-white h-full ">
 							{children}
 						</div>
 					</div>
