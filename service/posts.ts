@@ -18,3 +18,12 @@ export async function getAllPosts(listLen?: number): Promise<IPost[]> {
 
 	return sortedPosts;
 }
+
+export async function getPost(id: string): Promise<IPost> {
+	const filePath = path.join(process.cwd(), "public", "datas", "posts.json");
+	const fileContents = fs.readFileSync(filePath, "utf8");
+	const posts = JSON.parse(fileContents);
+	const post = posts[id];
+	if (!post) throw new Error(`${id}에 해당하는 post없음`);
+	return post;
+}

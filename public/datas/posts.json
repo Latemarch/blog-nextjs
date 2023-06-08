@@ -78,13 +78,13 @@
 		"tags": ["React"],
 		"title": "Time Ago"
 	},
-	"usememo와-usecallback": {
+	"usememo-usecallback": {
 		"author": "",
 		"description": "useMemo와 useCallback은 성능 최적화와 함수 메모이제이션을 위해 사용된다. useMemo는 동일 입력에 대해 이전 값을 재사용하는데 사용되어 불피요한 재계산을 줄여주며, useCallback은 함수의 재 렌더링을 막아 자식컴포넌트에 전달되는 함수는 자식컴포넌트의 불필요한 렌더링도 막아준다.",
 		"body": "`useCallbak`과 `useMemo`는 리액트 앱의 대표적인 성능개선 훅으로 리액트 앱의 과도한 리렌더링을 방지하여 앱의 성능을 향상시킨다. 작동 원리는 리액트 쿼리의 키와 같이 두 함수 모두 의존값을 가지는 배열을 하나 만들어 의존값이 변하지 않을때는 기존에 저장한 값을 사용하고 의존값이 바뀔 때에만 연산을 통해 값을 반환한다. \n```js\nconst memoizedCallback = useCallback(() => {\n  // 함수 로직\n}, [dependency]);\n```\n## useMemo \n```js\nimport React, { useState, useMemo } from 'react';\n\nfunction calculateExpensiveValue(count) {\n  // 복잡한 연산 수행\n  return count * 10; // 예시를 위해 간단한 연산\n}\n\nfunction App() {\n  const [count, setCount] = useState(0);\n  const [otherValue, setOtherValue] = useState(0);\n\n  const expensiveValue = useMemo(() => calculateExpensiveValue(count), [count]);\n  //otherValue의 변경으로 컴포넌트가 다시 렌더링 되더라도 count는 계산되지 않고 값이 재사용됨.\n  return (\n    <div>\n      <p>Expensive Value: {expensiveValue}</p>\n      <button onClick={() => setCount(count + 1)}>Increase Count</button>\n      <button onClick={() => setOtherValue(otherValue + 1)}>Increase Other Value</button>\n    </div>\n  );\n}\n\nexport default App;\n```\n\n원래 컴포넌트 내의 상태(state)가 변하면 컴포넌트가 리렌더링 되면서 `expensiveValue`가 다시 계산되어야 한다. 하지만 위 예에서는 `expensiveValue`가 `useMemo`로 `count`의 변경에 의존해서만 계산되기 때문에 이전 값을 재사용 하기 때문에 계산이 복잡할수록 `useMemo`로 성능 향상을 기대할 수 있다. \n\n## useCallback\n`useMemo`를 사용하는 상황은 비교적 단순하다. 복잡한 연산을 필요로 하는 작업을 줄이는 방향으로 설계하면 이또한 좋은 방법이 되기 때문이다. 하지만 `useCallback`은 약간 사정이 다르다. `useCallback`은 로직의 재활용이 가능하게 해줘서 함수가 속한 컴포넌트가 리렌더링 될 때, 함수의 재선언을 방지해 주는 역할에 그치기 때문에 함수의 재선언 작업정도만 줄여주기 때문이다. \n따라서 `useCallback`을 사용할때에는 몇가지 상황을 고려할 수 있다.\n\n1. 자식 컴포넌트에 함수를 전달할 때: 부모 컴포넌트가 리렌더링될 때마다 새로운 함수 참조가 생성되어 자식 컴포넌트에 전달되면, 자식 컴포넌트도 불필요하게 리렌더링될 수 있다. 이런 경우 `useCallback`을 사용하여 함수 참조를 유지하면, 자식 컴포넌트의 불필요한 리렌더링을 방지할 수 있다.\n\n2. 빈번한 이벤트 처리: 빈번한 이벤트 처리, 예를 들어 스크롤 이벤트나 마우스 이동 이벤트 같은 경우, 매 이벤트 발생마다 새로운 함수가 생성되지 않도록 `useCallback`을 사용해 함수의 재생성을 줄일 수 있다.\n\n3. 메모이제이션된 자식 컴포넌트: `React.memo`를 사용하여 최적화된 자식 컴포넌트가 있고, 이 컴포넌트에 함수를 전달할 경우 `useCallback`을 사용하여 함수 참조를 유지함으로써, 불필요한 자식 컴포넌트의 리렌더링을 방지할 수 있다.\n\n",
 		"category": "posts",
 		"createdAt": 1681986632055,
-		"id": "usememo와-usecallback",
+		"id": "usememo-usecallback",
 		"tags": ["React"],
 		"title": "useMemo와 useCallback"
 	}

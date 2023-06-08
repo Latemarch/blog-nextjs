@@ -1,7 +1,6 @@
 import { BsChevronRight } from "react-icons/bs";
 import { IPostCard } from "../type";
 import Link from "next/link";
-import { extractTextFromMarkdown } from "@/service/functions";
 
 export default function PostCard({ post }: IPostCard) {
 	return (

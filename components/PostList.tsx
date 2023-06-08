@@ -6,8 +6,9 @@ interface Props {
 export default function PostList({ posts }: Props) {
 	return (
 		<ul>
-			{posts &&
-				posts.map((post: IPost) => <PostCard key={post.id} post={post} />)}
+			{posts.map((post: IPost) => (
+				<PostCard key={post.id} post={post} />
+			))}
 		</ul>
 	);
 }
