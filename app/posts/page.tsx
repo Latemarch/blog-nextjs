@@ -1,5 +1,7 @@
-import React from "react";
+import PostList from "@/components/PostList";
+import { getAllPosts } from "@/service/posts";
 
-export default function Posts() {
-	return <div>Posts</div>;
+export default async function Posts() {
+	const posts = await getAllPosts();
+	return <PostList posts={posts} />;
 }
