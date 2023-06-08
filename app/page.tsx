@@ -1,6 +1,14 @@
 import { BsGithub, BsTwitter } from "react-icons/bs";
-import { AiOutlineInstagram, AiOutlineMail } from "react-icons/ai";
-export default function Home() {
+import {
+	AiFillFolderOpen,
+	AiOutlineInstagram,
+	AiOutlineMail,
+} from "react-icons/ai";
+import { getAllPosts } from "@/service/posts";
+import PostList from "@/components/PostList";
+import PostCard from "@/components/PostCard";
+export default async function Home() {
+	const posts = await getAllPosts(3);
 	return (
 		<div className="pb-20 text-zinc-600 dark:text-zinc-400">
 			<h1 className="text-4xl mb-4 text-h1 dark:text-Dh1">
@@ -24,18 +32,14 @@ export default function Home() {
 			</div>
 			<div className="my-20">
 				<div className="mx-2 mb-4 flex text-lg">Posts</div>
-				<ul className="md:border-l md:border-zinc-200 md:pl-6 md:dark:border-zinc-700/40">
-					{/* {posts &&
-            posts
-              .sort((a, b) => b.createdAt - a.createdAt)
-              .slice(0, 3)
-              .map((post) => <PostCard key={post.id} post={post} />)} */}
-				</ul>
+				<div className="md:border-l md:border-zinc-200 md:pl-6 md:dark:border-zinc-700/40">
+					<PostList posts={posts} />
+				</div>
 			</div>
 
 			<div className="border border-zinc-300/40 dark:border-zinc-700/40 rounded-2xl p-6 pt-2">
 				<div className="flex items-center mb-3">
-					{/* <AiFillFolderOpen /> */}
+					<AiFillFolderOpen />
 					<p className="text-zinc-600 dark:text-zinc-300 ml-2">Works</p>
 				</div>
 				<ul className="grid xs:grid-cols-2 gap-4 lg:grid-cols-3">
@@ -46,9 +50,5 @@ export default function Home() {
 				</ul>
 			</div>
 		</div>
-		// <div className="w-full h-full home text-white text-justify">
-		// 	<h1 className="text-3xl">Motivation</h1>
-		// 	<span className="text-xl">dljwldj</span>
-		// </div>
 	);
 }

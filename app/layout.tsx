@@ -18,15 +18,19 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<div className="fixed flex inset-0 bg-white dark:bg-black sm:px-8 justify-center">
-					<div className="w-full max-w-7xl lg:px-8 bg-zinc-100 "></div>
+				<div className="fixed flex inset-0 bg-zinc-50 dark:bg-black sm:px-8 justify-center">
+					<div className="w-full max-w-7xl lg:px-8">
+						<div className="w-full h-full bg-white dark:bg-zinc-900"></div>
+					</div>
 				</div>
 				<div className="relative flex justify-center w-full h-full sm:px-8 ">
 					<div className="relative flex justify-center px-8 max-w-7xl lg:px-16 ">
 						<HeaderScroll height={100}>
 							<Header />
 						</HeaderScroll>
-						<div className="pt-28">{children}</div>
+						<div className="m-auto mt-28 max-w-2xl lg:max-w-5xl text-white h-full ">
+							{children}
+						</div>
 					</div>
 				</div>
 			</body>
