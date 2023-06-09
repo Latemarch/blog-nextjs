@@ -9,6 +9,7 @@ export const DefaultPost: IPost = {
 	title: "",
 	body: "",
 	tags: [],
+	description: "",
 };
 
 export const DefaultProject: IProj = {

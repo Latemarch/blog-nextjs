@@ -23,8 +23,8 @@ export default async function Home() {
 				<a href="https://github.com/latemarch" target="_blank">
 					<BsGithub />
 				</a>
-				<BsTwitter />
-				<AiOutlineInstagram />
+				{/* <BsTwitter /> */}
+				{/* <AiOutlineInstagram /> */}
 				<div className="flex items-center gap-1">
 					<AiOutlineMail />
 					<p>naturalcall1313@gmail.com</p>

@@ -4,6 +4,7 @@ import FB from "@/public/svgs/firebase.svg";
 import TS from "@/public/svgs/ts.svg";
 import React from "@/public/svgs/react.svg";
 import { IIcon, iconName } from "../type";
+import Image from "next/image";
 
 export const iconObj: Record<iconName, string> = {
 	React,
@@ -20,7 +21,13 @@ export default function Icon({ name, onClick, style }: IIcon) {
 			onClick={onClick}
 			style={style}
 		>
-			<img className="scale-110" src={iconObj[name]} alt={iconObj[name]} />
+			<Image
+				className="scale-110"
+				src={iconObj[name]}
+				alt={iconObj[name]}
+				width={50}
+				height={50}
+			/>
 		</div>
 	);
 }
