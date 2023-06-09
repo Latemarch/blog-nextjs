@@ -1,7 +1,9 @@
 import Button from "@/components/Button";
+import MarkdowkVeiwer from "@/components/MarkdowkVeiwer";
 import { formatDate } from "@/components/PostCard";
 import Tag from "@/components/Tag";
 import { getAllPosts, getPost } from "@/service/posts";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 interface Props {
 	params: { id: string };
@@ -33,7 +35,7 @@ export default async function page({ params: { id } }: Props) {
 				</ul>
 			</div>
 
-			{post.body}
+			<MarkdowkVeiwer markdown={post.body} />
 			<div className="flex justify-end">
 				<div className="flex items-center bg-zinc-200 dark:bg-Dtab my-10 rounded-md dark:text-zinc-100"></div>
 			</div>
