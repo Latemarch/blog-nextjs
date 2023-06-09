@@ -1,9 +1,7 @@
-import Button from "@/components/Button";
 import MarkdowkVeiwer from "@/components/MarkdowkVeiwer";
 import { formatDate } from "@/components/PostCard";
 import Tag from "@/components/Tag";
 import { getAllPosts, getPost } from "@/service/posts";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 interface Props {
 	params: { id: string };
