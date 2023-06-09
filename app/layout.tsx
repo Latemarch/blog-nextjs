@@ -24,11 +24,11 @@ export default function RootLayout({
 					</div>
 				</div>
 				<div className="relative flex justify-center w-full h-full sm:px-8 ">
-					<div className="relative flex justify-center px-8 max-w-7xl lg:px-16 ">
+					<div className="relative flex justify-center px-8 max-w-7xl lg:px-16 text-zinc-800">
 						<HeaderScroll height={100}>
 							<Header />
 						</HeaderScroll>
-						<div className="m-auto mt-28 max-w-2xl lg:max-w-5xl text-white h-full ">
+						<div className="m-auto mt-28 max-w-2xl lg:max-w-5xl h-full ">
 							{children}
 						</div>
 					</div>

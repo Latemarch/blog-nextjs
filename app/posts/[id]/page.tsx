@@ -34,7 +34,6 @@ export default async function page({ params: { id } }: Props) {
 						))}
 				</ul>
 			</div>
-
 			<MarkdowkVeiwer markdown={post.body} />
 			<div className="flex justify-end">
 				<div className="flex items-center bg-zinc-200 dark:bg-Dtab my-10 rounded-md dark:text-zinc-100"></div>
