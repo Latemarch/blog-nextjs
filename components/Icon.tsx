@@ -14,7 +14,6 @@ export const iconObj: Record<iconName, string> = {
 	FB,
 };
 export default function Icon({ name, onClick, style }: IIcon) {
-	console.log(TS);
 	return (
 		<div
 			data-name={name}
