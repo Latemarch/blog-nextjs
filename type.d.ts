@@ -90,7 +90,7 @@ export interface ITag {
 	onClick?: (e: any) => void;
 }
 
-type iconName = "Query" | "Redux" | "FB" | "TS" | "React";
+type iconName = "Query" | "Redux" | "FB" | "TS" | "React" | "Next";
 interface IIcon {
 	name: iconName;
 	onClick?: (e: any) => void;

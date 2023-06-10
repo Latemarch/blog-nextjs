@@ -3,11 +3,13 @@ import Redux from "@/public/svgs/redux.svg";
 import FB from "@/public/svgs/firebase.svg";
 import TS from "@/public/svgs/ts.svg";
 import React from "@/public/svgs/react.svg";
+import Next from "@/public/svgs/nextjs.svg";
 import { IIcon, iconName } from "../type";
 import Image from "next/image";
 
 export const iconObj: Record<iconName, string> = {
 	React,
+	Next,
 	TS,
 	Query,
 	Redux,

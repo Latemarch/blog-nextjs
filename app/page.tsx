@@ -1,14 +1,12 @@
 import { BsGithub, BsTwitter } from "react-icons/bs";
-import {
-	AiFillFolderOpen,
-	AiOutlineInstagram,
-	AiOutlineMail,
-} from "react-icons/ai";
+import { AiFillFolderOpen, AiOutlineMail } from "react-icons/ai";
 import { getAllPosts } from "@/service/posts";
 import PostList from "@/components/PostList";
-import PostCard from "@/components/PostCard";
+import { getAllProjects } from "@/service/projects";
+import ProjectCard from "@/components/ProjectCard";
 export default async function Home() {
 	const posts = await getAllPosts(3);
+	const projects = await getAllProjects(4);
 	return (
 		<div className="pb-20 text-zinc-600 dark:text-zinc-400">
 			<h1 className="text-4xl mb-4 text-h1 dark:text-Dh1">
@@ -43,10 +41,10 @@ export default async function Home() {
 					<p className="text-zinc-600 dark:text-zinc-300 ml-2">Works</p>
 				</div>
 				<ul className="grid xs:grid-cols-2 gap-4 lg:grid-cols-3">
-					{/* {projects &&
-            projects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))} */}
+					{projects &&
+						projects.map((project) => (
+							<ProjectCard key={project.id} project={project} />
+						))}
 				</ul>
 			</div>
 		</div>
