@@ -4,6 +4,14 @@ import { getAllPosts } from "@/service/posts";
 import PostList from "@/components/PostList";
 import { getAllProjects } from "@/service/projects";
 import ProjectCard from "@/components/ProjectCard";
+
+export async function generateMetadata() {
+	return {
+		title: "Latemarch ",
+		description: "Project list Ive done",
+	};
+}
+
 export default async function Home() {
 	const posts = await getAllPosts(3);
 	const projects = await getAllProjects(4);
