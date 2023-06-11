@@ -17,9 +17,7 @@ export async function generateStaticParams() {
 	}));
 }
 
-export async function generateMetadata({
-	params: { id },
-}: Params): Promise<Metadata> {
+export async function generateMetadata({ params: { id } }: Props) {
 	const post = await getPost(id);
 	return {
 		title: post.title,
