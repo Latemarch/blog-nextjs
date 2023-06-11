@@ -2,6 +2,8 @@ import Button from "@/components/Button";
 import MarkdowkVeiwer from "@/components/MarkdowkVeiwer";
 import { formatDate } from "@/components/PostCard";
 import { getAllProjects, getProject } from "@/service/projects";
+import { Metadata } from "next";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { BsGithub } from "react-icons/bs";
 import { FiLink } from "react-icons/fi";
 
@@ -14,6 +16,16 @@ export async function generateStaticParams() {
 	return projects.map((project) => ({
 		id: project.id,
 	}));
+}
+
+export async function generateMetadata({
+	params: { id },
+}: Params): Promise<Metadata> {
+	const projects = await getProject(id);
+	return {
+		title: projects.title,
+		description: projects.detail,
+	};
 }
 
 export default async function Project({ params: { id } }: Props) {

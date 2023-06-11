@@ -2,6 +2,8 @@ import MarkdowkVeiwer from "@/components/MarkdowkVeiwer";
 import { formatDate } from "@/components/PostCard";
 import Tag from "@/components/Tag";
 import { getAllPosts, getPost } from "@/service/posts";
+import { Metadata } from "next";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { notFound } from "next/navigation";
 
 interface Props {
@@ -15,11 +17,21 @@ export async function generateStaticParams() {
 	}));
 }
 
+export async function generateMetadata({
+	params: { id },
+}: Params): Promise<Metadata> {
+	const post = await getPost(id);
+	return {
+		title: post.title,
+		description: post.description,
+	};
+}
+
 export default async function page({ params: { id } }: Props) {
 	const post = await getPost(id);
 	if (!post) return notFound();
 	return (
-		<article className="m-0 lg:m-20 pb-20 text-zinc-800 dark:text-Dspan">
+		<article className="m-0 lg:m-20 pb-20 text-zinc-800 dark:text-Dspan w-full">
 			<div className="mb-12">
 				<h1 className="text-6xl font-bold text-h1 dark:text-white">
 					{post.title}

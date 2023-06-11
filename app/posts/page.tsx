@@ -1,7 +1,12 @@
 import FilteredPostList from "@/components/FilteredPostList";
-import PostCard from "@/components/PostCard";
 import { getAllPosts } from "@/service/posts";
 
+export async function generateMetadata() {
+	return {
+		title: "Latemarch | Post",
+		description: "Blog posts",
+	};
+}
 export default async function Posts() {
 	const posts = await getAllPosts();
 	return (

@@ -1,6 +1,11 @@
 import ProjectCard from "@/components/ProjectCard";
 import { getAllProjects } from "@/service/projects";
-
+export async function generateMetadata() {
+	return {
+		title: "Latemarch | Projects",
+		description: "Project list Ive done",
+	};
+}
 export default async function Projects() {
 	const projects = await getAllProjects();
 	return (
