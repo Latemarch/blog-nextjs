@@ -24,6 +24,6 @@ export async function getPost(id: string): Promise<IPost> {
 	const fileContents = fs.readFileSync(filePath, "utf8");
 	const posts = JSON.parse(fileContents);
 	const post = posts[id];
-	if (!post) throw new Error(`${id}에 해당하는 post없음`);
+	// if (!post) throw new Error(`${id}에 해당하는 post없음`);
 	return post;
 }
