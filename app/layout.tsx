@@ -23,13 +23,15 @@ export default function RootLayout({
 						<div className="w-full h-full bg-white dark:bg-zinc-900"></div>
 					</div>
 				</div>
-				<div className="relative flex justify-center w-full h-full sm:px-8 ">
-					<div className="relative flex justify-center px-8 max-w-7xl lg:px-16 text-zinc-800">
-						<HeaderScroll height={100}>
-							<Header />
-						</HeaderScroll>
-						<div className="m-auto mt-28 max-w-2xl lg:max-w-5xl h-full ">
-							{children}
+				<div className="relative sm:px-8 ">
+					<div className="relative px-8 max-w-7xl mx-auto text-zinc-800">
+						<div className="md:px-8">
+							<HeaderScroll height={100}>
+								<Header />
+							</HeaderScroll>
+							<div className="m-auto mt-28 ma-w-2xl lg:max-w-5xl lg:px-8">
+								{children}
+							</div>
 						</div>
 					</div>
 				</div>

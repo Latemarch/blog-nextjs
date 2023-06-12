@@ -29,7 +29,7 @@ export default async function page({ params: { id } }: Props) {
 	const post = await getPost(id);
 	if (!post) return notFound();
 	return (
-		<article className="m-0 lg:m-20 pb-20 text-zinc-800 dark:text-Dspan w-full">
+		<article className="m-0 pb-20 text-zinc-800 dark:text-Dspan w-full">
 			<div className="mb-12">
 				<h1 className="text-6xl font-bold text-h1 dark:text-white">
 					{post.title}
