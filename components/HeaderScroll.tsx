@@ -36,9 +36,7 @@ export default function HeaderScroll({
 	};
 	return (
 		<div
-			className={`${
-				isFixed ? "fixed" : "absolute"
-			}  z-20 w-full px-8 max-w-7xl lg:px-16`}
+			className={`${isFixed ? "fixed" : "absolute"}  z-20 w-full `}
 			style={headerStyle}
 		>
 			{children}
