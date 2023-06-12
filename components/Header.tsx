@@ -11,7 +11,7 @@ export default function Header() {
 	return (
 		<header className="flex justify-center h-24 items-center w-full">
 			<Nav buttons={buttons} />
-			<div className="absolute flex right-0 rounded-full items-center justify-center">
+			<div className="absolute flex right-0  rounded-full items-center justify-center">
 				{/* <DarkModeSwitch
 					onChange={handleClick}
 					checked={isDark}
