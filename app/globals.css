@@ -11,5 +11,36 @@
 	}
 }
 
-body {
+.custom-markdown-style h1,
+.custom-markdown-style h2,
+.custom-markdown-style h3,
+.custom-markdown-style h4 {
+	@apply dark:text-Dh1;
 }
+.custom-markdown-style p,
+.custom-markdown-style span {
+	@apply dark:text-Dspan;
+}
+.custom-markdown-style ul {
+	@apply dark:text-Dspan;
+}
+.custom-markdown-style a {
+	@apply dark:text-blue-400;
+}
+.custom-markdown-style blockquote {
+	@apply dark:text-red-200 border-cyan-200 dark:border-cyan-800 pr-4 mx-4 text-justify;
+}
+/* 인라인코드 */
+.custom-markdown-style code {
+	@apply bg-gray-200 py-[0.2rem] rounded-md dark:bg-preColor dark:text-Dspan;
+}
+
+/* 코드블럭 */
+.custom-markdown-style pre {
+	@apply rounded-xl p-0;
+}
+
+/*인용블럭*/
+/* .custom-markdown-style > blockquote {
+	@apply my-8;
+} */
