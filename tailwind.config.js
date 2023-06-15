@@ -29,7 +29,7 @@ module.exports = {
 				Dh1: "#e4e4e7",
 				Dspan: "#9D9DA6",
 				h1: "#27272A",
-				span: "#e4e4e7",
+				span: "#71717a",
 			},
 		},
 		screens: {
