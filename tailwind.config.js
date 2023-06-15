@@ -26,10 +26,10 @@ module.exports = {
 				tab: "#FFFFFF",
 			},
 			textColor: {
-				Dh1: "#F4F4F5",
+				Dh1: "#e4e4e7",
 				Dspan: "#9D9DA6",
 				h1: "#27272A",
-				span: "#52525B",
+				span: "#e4e4e7",
 			},
 		},
 		screens: {
