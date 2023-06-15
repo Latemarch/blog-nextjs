@@ -17,7 +17,7 @@ export default function PostCard({ post }: IPostCard) {
 							<h1 className="font-bold text-lg text-h1 dark:text-Dh1 mb-1">
 								{post.title}
 							</h1>
-							<span className="line-clamp-3 text-zinc-600 dark:text-zinc-400">
+							<span className="line-clamp-3 text-span dark:text-zinc-400">
 								{post.description}
 							</span>
 						</div>
