@@ -17,7 +17,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en">
+		<html lang="en" data-theme="dark">
 			<body className={inter.className}>
 				<Providers>
 					<div className="fixed flex inset-0 bg-zinc-50 dark:bg-black sm:px-8 justify-center">
