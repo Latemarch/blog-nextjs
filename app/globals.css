@@ -12,16 +12,17 @@
 }
 
 .custom-markdown-style h1,
-.custom-markdown-style h2,
-.custom-markdown-style h3,
-.custom-markdown-style h4 {
-	@apply dark:text-Dh1;
+h2,
+h3,
+h4 {
+	@apply dark:text-zinc-200;
 }
 .custom-markdown-style p,
 .custom-markdown-style span {
 	@apply dark:text-Dspan;
 }
-.custom-markdown-style ul {
+.custom-markdown-style ul,
+li {
 	@apply dark:text-Dspan;
 }
 .custom-markdown-style a {
