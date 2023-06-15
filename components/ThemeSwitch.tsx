@@ -7,11 +7,12 @@ export default function ThemeSwitch() {
 	const handleClick = () => {
 		setTheme(theme === "dark" ? "light" : "dark");
 	};
+
 	return (
 		<DarkModeSwitch
 			className="mr-4 "
 			onChange={handleClick}
-			checked={theme === "dark" ? true : false}
+			checked={theme ? (theme === "dark" ? true : false) : true}
 			sunColor={"gray"}
 			moonColor={"white"}
 		/>
