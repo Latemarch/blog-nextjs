@@ -8,7 +8,7 @@ export default function Tag({ name, style, onClick }: ITag) {
 			style={style}
 			onClick={onClick}
 		>
-			<p className="px-4">{name}</p>
+			<p className="px-4 text-sm">{name}</p>
 		</div>
 	);
 }
