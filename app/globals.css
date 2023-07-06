@@ -38,7 +38,7 @@ li {
 
 /* 코드블럭 */
 .custom-markdown-style pre {
-	@apply rounded-xl p-0;
+	@apply rounded-xl p-2 bg-preColor;
 }
 
 /*인용블럭*/
