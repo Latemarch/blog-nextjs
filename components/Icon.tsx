@@ -4,6 +4,7 @@ import FB from "@/public/svgs/firebase.svg";
 import TS from "@/public/svgs/ts.svg";
 import React from "@/public/svgs/react.svg";
 import Next from "@/public/svgs/nextjs.svg";
+import PS from "@/public/svgs/planetscale.svg";
 import { IIcon, iconName } from "../type";
 import Image from "next/image";
 
@@ -14,6 +15,7 @@ export const iconObj: Record<iconName, string> = {
 	Query,
 	Redux,
 	FB,
+	PS,
 };
 export default function Icon({ name, onClick, style }: IIcon) {
 	return (

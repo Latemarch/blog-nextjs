@@ -1,8 +1,6 @@
 import MarkdowkVeiwer from "@/components/MarkdowkVeiwer";
 import { formatDate } from "@/components/PostCard";
 import { getAllProjects, getProject } from "@/service/projects";
-import { Metadata } from "next";
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { BsGithub } from "react-icons/bs";
 import { FiLink } from "react-icons/fi";
 
