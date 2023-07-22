@@ -50,7 +50,7 @@
 		"detail": "상용화를 염두해 두고 Next.js로  개인 중고차 딜러의 웹 사이트를 만들었습니다.",
 		"git": "https://github.com/Latemarch/second-car",
 		"id": "used-car",
-		"stacks": ["Next", "PS", "TS"],
+		"stacks": ["Next", "PS", "Redux", "TS"],
 		"published": "https://worldmotors.vercel.app/",
 		"title": "중고차매매(진행중)"
 	}
