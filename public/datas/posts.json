@@ -37,7 +37,7 @@
 		"category": "posts",
 		"createdAt": 1684902580873,
 		"id": "getserversideprops",
-		"tags": ["ETC"],
+		"tags": ["Nextjs"],
 		"title": "getServerSideProps"
 	},
 	"global-snippet-setting": {
@@ -127,6 +127,20 @@
 		"id": "ecma",
 		"description": "데이터 패칭을 할 때, 가끔 await를 누락하는 실수를 하면 패칭된 데이터가 아닌 프로미스 객체를 반환 받는 경우가 생긴다. 이를 이해하기 위해선 자바스크립트의 동작원리를 알아야한다. single threaded인 자바 스크립트가 어떻게 비동기 작업을 다루고 멀티 테스킹이 가능한 것처럼 보이는지 알아보자.",
 		"tags": ["ES"],
+<<<<<<< Updated upstream
 		"title": "자바스크립트 작동원리"
+=======
+		"title": "자바스크립트 동작방식"
+	},
+	"restarchitecture": {
+		"author": "",
+		"body": "REpresentational State Transfer의 약자인 REST는 \"분산 하이퍼미디어 시스템을 위한 아키텍처 스타일\"로  웹과 같은 네트워크 시스템에서 텍스트, 이미지, 오디오 등 다양한 형태의 미디어와 링크를 통해 연결된 정보를 다루기 위한 디자인 원칙과 구조이다.\n\n사실 주로 API를 소비하는 프론트엔드 입장에서는 API에 특정 아키텍처의 원칙을 적용하면서 오는 장단점이나 어려움을 알기 힘들다. 다만 추상적으로나마 REST API에 대해 생각해 본바를 기록해 두고자 이 포스팅을 작성한다.\n\n## 왜 REST인가?\nAPI가 REST 아키텍처를 따르면서 오는 가장 큰 장점은 시스템의 통제와 서버와 클라이언트간의 독립적인 확장성 일 것이다. 그렇다면 시스템에 대한 (필요한 만큼의)완전한 통제가 가능하고 서버와 클라이언트가 (통제할 수 있는)독립적인 진화가 가능하다면 REST 아키텍처의 제한들을 모두 지키지 않아도 API는 REST 아키텍처를 따르려고 하면서 목표했던 목적들은 모두 이룬 셈이다.\n\n## REST API\nREST 아키텍처를 따르는 API를 만들기 위해선 [이전글](https://latemarch.vercel.app/posts/restful-api)에 소개된 원칙들을 지켜야 한다. 웹에서 작동하는 API들은 HTTP프로토콜을 기반으로 작동하기 때문에 이로써 자동으로 대부분의 REST 아키텍처가 제시하는 원칙들을 지키게 된다. 다만 \"Uniform Interface\"에서 문제가 생길 수 있다.\n\n#### Uniform Interface\nUniform Interface 원칙은 다음과 같은 네 가지 원칙들로 구성된다.\n\n1. Resource-Based(자원 기반): 웹 서비스는 자원을 식별하고 이를 구별하는 데 중점을 둡니다. 각 자원에는 고유한 URL이 할당되고, 이 URL을 통해 해당 자원을 참조하고 조작할 수 있습니다.\n\n2. Manipulation of Resources Through Representations(표현을 통한 자원 조작): 클라이언트가 서버에 자원을 요청하면, 서버는 해당 자원의 표현(representation)을 전송합니다. 이 표현은 JSON, XML 등의 형식으로 되어있을 수 있습니다. 클라이언트는 이 표현을 이용해 자원을 업데이트하거나 삭제할 수 있습니다.\n\n3. Self-descriptive Messages(자기 서술적인 메시지): 각 메시지는 자원을 처리하는 데 필요한 충분한 정보를 포함해야 합니다. 이는 미디어 타입이나 메시지의 메타데이터를 통해 제공될 수 있습니다.\n\n4. Hypermedia as the Engine of Application State (HATEOAS, 애플리케이션 상태의 엔진으로서의 하이퍼미디어): 클라이언트가 어플리케이션 상태(현재 상태, 다음 상태 등)를 변경하는데 필요한 모든 정보를 서버로부터 얻을 수 있어야 합니다. 이 정보는 일반적으로 하이퍼링크 형태로 제공됩니다.\n\n이중에서도 아래 두가지가 문제가 될 수 있다. API는 \"충분한\"자기 서술적인 메시지가 아니다. 또한 여느 API응답이 그렇듯이 HATEOAS하지 않은것은 명백해 보인다. 아래는 API으답 예시이다.\n```js\nHTTP/1.1 200 OK\nDate: Mon, 26 Jul 2023 05:00:00 GMT\nServer: API Server\nContent-Type: application/json\nContent-Length: 81\nConnection: keep-alive\n\n{\n  \"city\": \"Seoul\",\n  \"weather\": \"Clear\",\n  \"temperature\": 286.55\n}\n```\n우리가 보기엔 충분한 정보이지만 API는 기계-기계 통신 이므로 충분한 자기 서술적이지 못할 수 있다. 헤더에 담긴 정보들로 데이터를 파싱하여 manipulate한 값으로 변환할 수는 있어도 city, weather, temperature와 같은 키값과 그에 대응되는 값들은 명시되기 전까지 컴퓨터에게는 무의미한 것들이다.\n\n## 그것들은 정말 필요한가?\n앞서 REST아키텍처가 추구하는 것은 서버와 클라이언트간의 독립적인 진화(Seperation of Concerns)라고 하였다. 서버에 변경사항이 있어 응답이 달라져야만 한다면 \"충분히\" 자기 서술적이지 못한 응답은 클라이언트에게 예기치 못한 오류를 야기할 수 있다. 또한 HATEOAS하지 못하면 서버 개발이 진행되면서 처음에 정해두었던 전이들에도 제한 사항이 생길 수 있다. 따라서 서버와 클라이언트 간에 충분한 독립적 진화가 이뤄지지 않는다.\n\n## RESTful할 필요가 있을까?\n위 예시에서 부족한 점을 채우는 방법은 분명 존재할 것이다. 자료형을 바꿔 `link`속성을 추가하고 `link`를 포함한 모든 키와 값들에 대해 명시한다면 RESTful API를 만들 수 있을 것이다. 문제는 이런 과정이 필요한가인데 다른 개발자들을 보면 그렇지는 않은것 같다. 만약 진정으로 이 작업이 필요했다면 우리가 알고 API응답의 모습이 지금과는 많이 다를 것이다. 그리고 우리는 \"적당히\" REST 아키텍처의 원칙들을 따르는 API를 REST API라고 부르고 있기도 하다.\n\n따라서, 오늘날 우리가 사용하고 만들고 있는 REST API는 사실 REST API가 아니었던 것. (~~제안자인 Roy T. Fiedling도 제발 이름좀 바꿔달라고 애원중~~) 하지만 개발자들은 API를 만들면서 REST 아키텍처가 추구하는 목적을 공유하고 있다고 볼 수 있다.\n\n이 글은 아래의 출처를 바탕으로 작성하였음.\n출처: [그런 REST API로 괜찮은가](https://youtu.be/RP_f5dMoHFc)",
+		"category": "posts",
+		"createdAt": 1690478733149,
+		"id": "restarchitecture",
+		"description": "REpresentational State Transfer의 약자인 REST는 분산 하이퍼미디어 시스템을 위한 아키텍처 스타일이다. 주로 API를 소비하는 프론트엔드 입장에서는 API에 특정 아키텍처의 원칙을 적용하면서 오는 장단점이나 어려움을 알기 힘들다. 다만 추상적으로나마 REST API에 대해 생각해 본바를 기록해 두고자 이 포스팅을 작성한다.",
+		"tags": ["ETC"],
+		"title": "REST 아키텍처와 API"
+>>>>>>> Stashed changes
 	}
 }
