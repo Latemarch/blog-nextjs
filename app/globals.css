@@ -21,6 +21,10 @@ h4 {
 .custom-markdown-style span {
 	@apply dark:text-Dspan;
 }
+.custom-markdown-style strong,
+.custom-markdown-style b {
+	@apply dark:text-white;
+}
 .custom-markdown-style ul,
 li {
 	@apply dark:text-Dspan;
