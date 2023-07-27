@@ -118,5 +118,14 @@
 		"id": "approuter-datafetching",
 		"tags": ["Nextjs"],
 		"title": "App Router - data fetching"
+	},
+	"ecma": {
+		"author": "",
+		"body": "자바스크립트는 웹 브라우저 엔진에서 single-threaded로 동작한다. 싱글 스레드라는 뜻은 한번에 한가지 작업만 할 수 있으며 흔히 말하는 멀티테스킹이 불가능하다는 말이다. \n\n## Call Stack\n자바 스크립트는 함수의 실행을 관리하기 위해 후입선출 원칙의 콜 스택을 사용하는데 함수가 호출되는 시점에 스택의 맨 위에 추가(push)되며 추가된 함수의 실행이 완료되면 스택에서 제거(pop)된다. 그런데 뭔가 이상하다. 스크립트를 위에서 아래로, 왼쪽에서 오른쪽으로 코드를 읽는다면 스택이 아니라 선입선출인 큐에 쌓여야 맞는것 아닐까?\n\n### 어땟든 스택으로\n\n```js\nfunction function1() {\n    console.log('Function 1 starts');\n    function2();\n    console.log('Function 1 ends');\n}\n\nfunction function2() {\n    console.log('Function 2 starts');\n    function3();\n    console.log('Function 2 ends');\n}\n\nfunction function3() {\n    console.log('Function 3 starts and ends');\n}\n\nfunction1();\n\n//stack [ ftn1, ftn2, ftn3]\n\n//출력\n//Function 1 starts\n//Function 2 starts\n//Function 3 starts and ends\n//Function 2 ends\n//Function 1 ends\n```\n위 예제에서 콜 스택은 최대 3개까지 쌓이게 되고, 마지막에 추가된 `function3`가 처음으로 스택에서 제거(pop)되며 이후에 `function2`, `function`의 순서로 함수가 실행되며 스택이 비워진다.\n\n그렇다면 아래의 경우는 어떨까? \n```js\nfunction function1() {\n    console.log('Function 1 is running');\n}\n\nfunction function2() {\n    console.log('Function 2 is running');\n}\n\nfunction function3() {\n    console.log('Function 3 is running');\n}\n\nfunction1();\nfunction2();\nfunction3();\n\n//출력\n//Function 1 is running\n//Function 2 is running\n//Function 3 is running\n```\n\n먼저 설명한 대로만 생각한다면 콜 스택에 함수가 1,2,3번 순으로 쌓여서 3,2,1순으로 실행되어야 할것 같다. 하지만 독립적으로 실행되는 함수들을 콜스택에 쌓이지 않는다. 콜 스택에 처음 추가된 `function1`은 `function2`가 스택에 쌓이길 기다리지 않고 실행된다. 오히려 `function2`는 `function1`이 콜 스택에서 제거되기를 기다리고 있는 것이다. 즉, 콕 스택에 함수가 두개 이상 쌓이는 경우는 (동기적 작업에서)콜백 함수가 존재할 때이다. \n\n## 비동기 작업\n 분명 자바스크립트는 싱글 스레드로 한번에 한가지 작업만 할 수 있다고 했다. 하지만 자바스크립트는 분명히 비동기 작업으로 여러가지 작업을 한번에 수행하는것 처럼 보인다. 비동기 작업은 Web Apis라는 브라우저에서 제공하는 별도의 스레드에서 실행된다. 이 경우에도 자바 스크립트 내부에서 실행되는 것이 아니라 일종의 '외주'를 주는 일이기 때문에 우리의 ECMA회사는 여전히 한번에 한가지 일만 수행하고 있다. 그렇다면 자바스크립트는 이 '외주'를 준 일들을 어떻게 관리할까?\n \n### 이벤트 루프와 큐\n비동기 작업이라고 하더라도 일단 콜 스택에 추가 된 후, Web Api에 작업을 위임하면서 스택에서 제거된다. 콜 스택에서 제거된 비동기 작업은 **처리가 완료 된 후** 이벤트 큐로 옮겨지게 된다.(비동기 작업들은 자바스크립트와 달리 병렬처리 됨) \n\n이벤트 큐로 옮겨진 비동기 작업의 결과들은 자바스크립트에서 처리될 순서를 기다린다. 이를 이벤트 루프가 큐와 스택을 계속 확인하며 비동기 작업의 결과들을 처리한다. 이벤트 큐에서 순서를 기다리는 결과들은 **콜 스택이 비어있을 때에만** 콜 스택에 추가 되어 자바스크립트에 의해 다뤄질 수 있다. \n\n> 데이터 패칭에서 await를 누락하는 실수를 하면 Web api로 위임하기 전인 Promise객체가 반환된다. await를 앞에 붙여야 Web api에서 처리된 Promise가 fulfilled되고, 이벤트 큐에서 대기 했다가 콜 스택에 추가되어 자바스크립트 스레드에서 처리되어 얻고자 한 데이터를 반환 받을 수 있다.\n\n### 블로킹\n앞선 함수가 스택에서 제거 되면 동기적 작업들이 이벤트 큐의 작업들보다 우선순위를 가진다. 따라서 동기적 작업들이 많이 밀려있다면, 이벤트 큐의 작업들은 콜 스택에 추가될 수 없고 이벤트 큐에서 대기해야 한다. 이를 블로킹 이라고 한다. 이런 이유로 시간이 많이 걸리는 작업은 병렬처리가 가능한 Web api로 작업을 위임 하여 블로킹 현상을 방지 하고 메인 스레드는 많은 작업들을 처리하게 하는 것이 중요하다.\n\n\n\n \n ",
+		"category": "posts",
+		"createdAt": 1690446199302,
+		"id": "ecma",
+		"tags": ["ES"],
+		"title": "자바스크립트 동작원리"
 	}
 }
