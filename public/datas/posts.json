@@ -156,6 +156,7 @@
 		"createdAt": 1690815407585,
 		"id": "execution-context",
 		"tags": ["ES"],
+		"description": "자바스크립트 코드의 실행 순서를 관리하는 콜 스택에는 함수가 쌓이지 않는다. 대시 함수가 실행 될 때, 함수가 실행되는데 필요한 정보들을 담은 실행 컨텍스트가 콜 스텍에 쌓이게 된다. ",
 		"title": "Execution Context"
 	}
 }
