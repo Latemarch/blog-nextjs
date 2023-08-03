@@ -166,7 +166,7 @@
 		"createdAt": 1691072873043,
 		"id": "object",
 		"description": "자바스크립트 객체(JavaScript Object)는 값과 mothod(function)를 갖는 여러 속성(property)을 hold하는 독립형 container다. 원시형을 제외하면 자바스크립트의 모든 자료형은 객체가 된다. 자바스크립트 객체는 다른 언어의 Hash, Map이나 Dictionary와 비슷하나, 오브젝트 생성자로 선언되어야한다.",
-		"tags": ["Nextjs"],
+		"tags": ["ES"],
 		"title": "Object"
 	}
 }
