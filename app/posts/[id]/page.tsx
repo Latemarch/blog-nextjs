@@ -2,8 +2,6 @@ import MarkdowkVeiwer from "@/components/MarkdowkVeiwer";
 import { formatDate } from "@/components/PostCard";
 import Tag from "@/components/Tag";
 import { getAllPosts, getPost } from "@/service/posts";
-import { Metadata } from "next";
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { notFound } from "next/navigation";
 
 interface Props {
