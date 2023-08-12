@@ -17,7 +17,6 @@ const firebaseConfig = {
   databaseURL:
     'https://blog-eba42-default-rtdb.asia-southeast1.firebasedatabase.app',
   projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
-  // projectId: "blog-eba42 ",
 }
 
 // Initialize Firebase
@@ -39,6 +38,15 @@ export function addItem(item: IPost | IProj) {
     },
   )
 }
+export function addItems(item: any) {
+  return set(
+    ref(database, `nextjs/projects`), //
+    {
+      ...item,
+      createdAt: item.createdAt ? item.createdAt : Date.now(),
+    },
+  )
+}
 
 export async function getItems(item: string): Promise<any[]> {
   const snapshot = await get(child(dbRef, `nextjs/${item}`))
@@ -53,16 +61,18 @@ export async function getItem(
   id: string | undefined,
   category: string,
 ): Promise<any> {
-  const snapshot = await get(child(dbRef, `nextjs/${category}/${id}`))
+  const snapshot = await get(child(dbRef, `${category}/${id}`))
   const item = snapshot.val()
   return item
 }
 
 export async function updateItem(newData: any) {
-  return update(dbRef, { [`${newData.category}/${newData.id}`]: newData })
+  return update(dbRef, {
+    [`nextjs/${newData.category}/${newData.id}`]: newData,
+  })
     .then(() => console.log('updated'))
     .catch(console.log)
 }
 export function removeItem(item: IPost | IProj) {
-  return remove(ref(database, `${item.category}/${item.id}`))
+  return remove(ref(database, `nextjs/${item.category}/${item.id}`))
 }
