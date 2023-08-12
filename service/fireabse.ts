@@ -52,6 +52,7 @@ export async function getItems(item: string): Promise<any[]> {
   const snapshot = await get(child(dbRef, `nextjs/${item}`))
   if (snapshot.exists()) {
     const data: any[] = Object.values(snapshot.val())
+    data.sort((a, b) => b.createdAt - a.createdAt)
     return data
   }
   return []
