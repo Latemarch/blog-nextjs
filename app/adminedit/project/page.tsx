@@ -1,5 +1,9 @@
-import { getItem } from '@/service/fireabse'
+import EditprojectForm from '@/components/EditProjectForm'
 
 export default async function page() {
-  return <div>project Edit</div>
+  return (
+    <div>
+      <EditprojectForm />
+    </div>
+  )
 }
