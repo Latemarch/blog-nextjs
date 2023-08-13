@@ -5,11 +5,13 @@ import { getStyle } from '@/service/functions'
 import { useState } from 'react'
 import { addItem } from '@/service/fireabse'
 import { IPost } from '@/type'
+import { useRouter } from 'next/navigation'
 
 type Props = {
   post?: IPost
 }
 export default function EditPostForm({ post }: Props) {
+  const router = useRouter()
   const { register, handleSubmit } = useForm()
   const [tags, setTags] = useState<string[]>(post?.tags ? post.tags : [])
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -23,10 +25,13 @@ export default function EditPostForm({ post }: Props) {
     }
   }
 
-  const onSubmit = (data: any) => {
-    const uploadData = { ...data, tags, category: 'posts' }
-    addItem(uploadData)
-    console.log(uploadData)
+  const onSubmit = async (data: any) => {
+    const uploadData = { ...post, ...data, tags, category: 'posts' }
+    const result = await addItem(uploadData)
+    if (result.ok) {
+      if (post?.id) router.push(`/posts/${post?.id}`)
+      else router.push(`/posts/${data.id}`)
+    }
   }
 
   return (
@@ -55,13 +60,13 @@ export default function EditPostForm({ post }: Props) {
         <label>Description:</label>
         <textarea
           defaultValue={post?.description}
-          className="bg-gray-300 dark:bg-gray-700 p-2"
+          className="bg-gray-300 dark:bg-gray-700 p-2 h-32"
           {...register('description')}
         />
         <label>Body:</label>
         <textarea
           defaultValue={post?.body}
-          className="bg-gray-300 dark:bg-gray-700 p-2"
+          className="bg-gray-300 dark:bg-gray-700 p-2 h-80"
           {...register('body')}
         />
         <button type="submit">Submit</button>

@@ -9,6 +9,7 @@ import {
 } from 'firebase/database'
 import { initializeApp } from 'firebase/app'
 import { IPost, IProj } from '../type'
+import { cache } from 'react'
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   // authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -19,17 +20,18 @@ const firebaseConfig = {
   projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
 }
 
+const deployHookUrl = process.env.VERCEL_DEPLOY_HOOK!!
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
 const database = getDatabase()
 const dbRef = ref(getDatabase(app))
 
-export function addItem(item: IPost | IProj) {
+export async function addItem(item: IPost | IProj) {
   const id = item.id
     ? item.id
     : `${item.title.toLowerCase().trim().replace(/\s+/g, '-')}`
 
-  return set(
+  return await set(
     ref(database, `nextjs/${item.category}/${id}`), //
     {
       ...item,
@@ -37,35 +39,44 @@ export function addItem(item: IPost | IProj) {
       createdAt: item.createdAt ? item.createdAt : Date.now(),
     },
   )
+    .then((res) => {
+      fetch(deployHookUrl)
+      return { ok: true }
+    })
+    .catch((error) => {
+      return { ok: false }
+    })
 }
-export function addItems(item: any) {
-  return set(
+export const addItems = async (item: any) => {
+  set(
     ref(database, `nextjs/projects`), //
     {
       ...item,
       createdAt: item.createdAt ? item.createdAt : Date.now(),
     },
   )
+  return 'dada'
 }
 
-export async function getItems(item: string): Promise<any[]> {
-  const snapshot = await get(child(dbRef, `nextjs/${item}`))
-  if (snapshot.exists()) {
-    const data: any[] = Object.values(snapshot.val())
-    data.sort((a, b) => b.createdAt - a.createdAt)
-    return data
-  }
-  return []
-}
+export const getItems = cache(
+  async (item: string): Promise<any[]> => {
+    const snapshot = await get(child(dbRef, `nextjs/${item}`))
+    if (snapshot.exists()) {
+      const data: any[] = Object.values(snapshot.val())
+      data.sort((a, b) => b.createdAt - a.createdAt)
+      return data
+    }
+    return []
+  },
+)
 
-export async function getItem(
-  id: string | undefined,
-  category: string,
-): Promise<any> {
-  const snapshot = await get(child(dbRef, `${category}/${id}`))
-  const item = snapshot.val()
-  return item
-}
+export const getItem = cache(
+  async (id: string | undefined, category: string): Promise<any> => {
+    const snapshot = await get(child(dbRef, `nextjs/${category}/${id}`))
+    const item = snapshot.val()
+    return item
+  },
+)
 
 export async function updateItem(newData: any) {
   return update(dbRef, {
