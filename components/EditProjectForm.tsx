@@ -1,6 +1,5 @@
 'use client'
 import { useForm } from 'react-hook-form'
-import { getStyle } from '@/service/functions'
 import { useState } from 'react'
 import { addItem } from '@/service/fireabse'
 import { useRouter } from 'next/navigation'
@@ -64,19 +63,19 @@ export default function EditprojectForm({ project }: Props) {
         />
         <input
           placeholder="/giturl"
-          defaultValue={project?.id}
+          defaultValue={project?.git}
           className="bg-gray-300 dark:bg-gray-700 p-2"
           {...register('git')}
         />
         <input
           placeholder="/published url"
-          defaultValue={project?.id}
+          defaultValue={project?.published}
           className="bg-gray-300 dark:bg-gray-700 p-2"
           {...register('published')}
         />
         <textarea
           placeholder="detail"
-          defaultValue={project?.description}
+          defaultValue={project?.detail}
           className="bg-gray-300 dark:bg-gray-700 p-2 h-32"
           {...register('description')}
         />
