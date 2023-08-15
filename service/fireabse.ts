@@ -41,7 +41,7 @@ export async function addItem(item: IPost | IProj) {
   )
     .then((res) => {
       fetch(deployHookUrl)
-      return { ok: true }
+      return { ok: true, deployHookUrl }
     })
     .catch((error) => {
       return { ok: false }
