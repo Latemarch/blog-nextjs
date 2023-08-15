@@ -23,39 +23,34 @@ const app = initializeApp(firebaseConfig)
 const database = getDatabase()
 const dbRef = ref(getDatabase(app))
 
-export async function addItem(item: IPost | IProj) {
-  const id = item.id
-    ? item.id
-    : `${item.title.toLowerCase().trim().replace(/\s+/g, '-')}`
-
-  return await set(
-    ref(database, `nextjs/${item.category}/${id}`), //
-    {
-      ...item,
-      id,
-      createdAt: item.createdAt ? item.createdAt : Date.now(),
-    },
-  )
-    .then((res) => {
-      fetch(deployHookUrl)
-      return {
-        ok: true,
-      }
-    })
-    .catch((error) => {
-      return { ok: false }
-    })
+const prepareData = (item: IPost | IProj, idOverride?: string) => {
+  const id =
+    idOverride ||
+    item.id ||
+    item.title.toLowerCase().trim().replace(/\s+/g, '-')
+  return {
+    ...item,
+    id,
+    createdAt: item.createdAt || Date.now(),
+  }
 }
 
 export const addItems = async (item: any) => {
-  set(
-    ref(database, `nextjs/projects`), //
-    {
-      ...item,
-      createdAt: item.createdAt ? item.createdAt : Date.now(),
-    },
-  )
-  return 'dada'
+  const data = prepareData(item)
+  await set(ref(database, `nextjs/projects`), data)
+  return 'dada' // Unclear why 'dada' is returned. Consider returning a meaningful value.
+}
+
+export async function addItem(item: IPost | IProj) {
+  const data = prepareData(item)
+  try {
+    await set(ref(database, `nextjs/${item.category}/${data.id}`), data)
+    await fetch(deployHookUrl) // Make sure deployHookUrl is available in this scope
+    return { ok: true }
+  } catch (error) {
+    console.error(error)
+    return { ok: false }
+  }
 }
 
 export const getItems = cache(
@@ -63,8 +58,7 @@ export const getItems = cache(
     const snapshot = await get(child(dbRef, `nextjs/${item}`))
     if (snapshot.exists()) {
       const data: any[] = Object.values(snapshot.val())
-      data.sort((a, b) => b.createdAt - a.createdAt)
-      return data
+      return data.sort((a, b) => b.createdAt - a.createdAt)
     }
     return []
   },
@@ -73,18 +67,55 @@ export const getItems = cache(
 export const getItem = cache(
   async (id: string | undefined, category: string): Promise<any> => {
     const snapshot = await get(child(dbRef, `nextjs/${category}/${id}`))
-    const item = snapshot.val()
-    return item
+    return snapshot.val()
   },
 )
 
-export async function updateItem(newData: any) {
-  return update(dbRef, {
-    [`nextjs/${newData.category}/${newData.id}`]: newData,
-  })
-    .then(() => console.log('updated'))
-    .catch(console.log)
+export const updateItem = async (newData: any) => {
+  try {
+    await update(dbRef, {
+      [`nextjs/${newData.category}/${newData.id}`]: newData,
+    })
+    console.log('updated')
+  } catch (error) {
+    console.error(error)
+  }
 }
-export function removeItem(item: IPost | IProj) {
+
+export const removeItem = (item: IPost | IProj) => {
   return remove(ref(database, `nextjs/${item.category}/${item.id}`))
 }
+
+// export async function addItem(item: IPost | IProj) {
+//   const id = item.id
+//     ? item.id
+//     : `${item.title.toLowerCase().trim().replace(/\s+/g, '-')}`
+
+//   return await set(
+//     ref(database, `nextjs/${item.category}/${id}`), //
+//     {
+//       ...item,
+//       id,
+//       createdAt: item.createdAt ? item.createdAt : Date.now(),
+//     },
+//   )
+//     .then((res) => {
+//       fetch(deployHookUrl)
+//       return {
+//         ok: true,
+//       }
+//     })
+//     .catch((error) => {
+//       return { ok: false }
+//     })
+// }
+
+// export const addItems = async (item: any) => {
+//   set(
+//     ref(database, `nextjs/projects`), //
+//     {
+//       ...item,
+//       createdAt: item.createdAt ? item.createdAt : Date.now(),
+//     },
+//   )
+// }
