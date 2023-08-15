@@ -10,17 +10,14 @@ import {
 import { initializeApp } from 'firebase/app'
 import { IPost, IProj } from '../type'
 import { cache } from 'react'
+
+const deployHookUrl = process.env.NEXT_PUBLIC_VERCEL_DEPLOY_HOOK!!
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  // authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  // authDomain: 'blog-eba42.firebaseapp.com',
-  // databaseURL: process.env.REACT_APP_FIREBASE_DB_UR,
-  databaseURL:
-    'https://blog-eba42-default-rtdb.asia-southeast1.firebasedatabase.app',
+  databaseURL: process.env.NEXT_PUBLIC_REACT_APP_FIREBASE_DB_URL,
   projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
 }
 
-const deployHookUrl = process.env.VERCEL_DEPLOY_HOOK!!
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
 const database = getDatabase()
@@ -41,12 +38,15 @@ export async function addItem(item: IPost | IProj) {
   )
     .then((res) => {
       fetch(deployHookUrl)
-      return { ok: true, deployHookUrl }
+      return {
+        ok: true,
+      }
     })
     .catch((error) => {
       return { ok: false }
     })
 }
+
 export const addItems = async (item: any) => {
   set(
     ref(database, `nextjs/projects`), //
