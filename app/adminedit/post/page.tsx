@@ -1,11 +1,12 @@
 import EditPostForm from '@/components/EditPostForm'
+import InputPW from '@/components/InputPW'
 
 export default async function page() {
-  // const post = await getItem('ecma', 'posts')
-
   return (
-    <div>
-      <EditPostForm />
+    <div className="flex justify-center w-full">
+      <InputPW>
+        <EditPostForm />
+      </InputPW>
     </div>
   )
 }
