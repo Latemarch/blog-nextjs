@@ -28,6 +28,7 @@ export default function EditPostForm({ post }: Props) {
   const onSubmit = async (data: any) => {
     const uploadData = { ...post, ...data, tags, category: 'posts' }
     const result = await addItem(uploadData)
+    console.log(result)
     if (result.ok) {
       if (post?.id) router.push(`/posts/${post?.id}`)
       else router.push(`/posts/${data.id}`)
