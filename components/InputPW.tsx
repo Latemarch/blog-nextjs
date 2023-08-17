@@ -9,7 +9,6 @@ const passWord = process.env.NEXT_PUBLIC_PW!!
 export default function InputPW({ children }: Props) {
   const [isCorrect, setIsCorrect] = useState<boolean>(false)
   const [pw, setPw] = useState<string | undefined>()
-  console.log(passWord)
 
   if (!isCorrect) {
     return (
