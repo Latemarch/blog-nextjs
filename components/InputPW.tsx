@@ -9,6 +9,7 @@ const passWord = process.env.NEXT_PUBLIC_PW!!
 export default function InputPW({ children }: Props) {
   const [isCorrect, setIsCorrect] = useState<boolean>(false)
   const [pw, setPw] = useState<string | undefined>()
+  console.log(passWord)
 
   if (!isCorrect) {
     return (
@@ -17,7 +18,6 @@ export default function InputPW({ children }: Props) {
         <input
           className="bg-gray-300 dark:bg-gray-300 text-gray-800 p-2 rounded-md"
           value={pw}
-          type="password"
           onChange={(e) => setPw(e.target.value)}
         />
         <button onClick={() => pw === passWord && setIsCorrect(true)}>
