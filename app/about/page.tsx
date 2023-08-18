@@ -24,7 +24,7 @@ export default async function page() {
         Web Front-end Developer. 전준형
       </h1>
       {Object.entries(sections).map(([key, value]) => (
-        <div className="md:flex py-4">
+        <div key={value} className="md:flex py-4">
           <h2 className="text-xl shrink-0 md:p-2 md:py-3 md:w-1/4">{key}</h2>
           <MarkdowkVeiwer markdown={about[value]} />
         </div>
