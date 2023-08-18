@@ -38,14 +38,14 @@ const prepareData = (item: IPost | IProj, idOverride?: string) => {
 export const addItems = async (item: any) => {
   const data = prepareData(item)
   await set(ref(database, `nextjs/projects`), data)
-  return 'dada' // Unclear why 'dada' is returned. Consider returning a meaningful value.
+  return 'dada'
 }
 
 export async function addItem(item: IPost | IProj) {
   const data = prepareData(item)
   try {
     await set(ref(database, `nextjs/${item.category}/${data.id}`), data)
-    await fetch(deployHookUrl) // Make sure deployHookUrl is available in this scope
+    await fetch(deployHookUrl)
     return { ok: true }
   } catch (error) {
     console.error(error)
