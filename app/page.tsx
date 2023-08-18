@@ -21,11 +21,13 @@ export default async function Home() {
       <h1 className="text-4xl mb-4 text-h1 dark:text-Dh1">
         개발 블로그가 되고싶은 개발 공부 블로그
       </h1>
-      <span>
-        방문해 주셔서 감사합니다. 이 블로그에 제가 프론트엔드 개발자로써 필요한
-        스택들을 갖추는 과정을 기록했습니다. 스택들에 대한 정보를 담은 글,
-        그리고 진행했던 프로젝트의 일부와 그 설명을 보실 수 있습니다.
-      </span>
+      <div className="max-w-[820px]">
+        <span>
+          방문해 주셔서 감사합니다. 이 블로그에 제가 프론트엔드 개발자로써
+          필요한 스택들을 갖추는 과정을 기록했습니다. 스택들에 대한 정보를 담은
+          글, 그리고 진행했던 프로젝트의 일부와 그 설명을 보실 수 있습니다.
+        </span>
+      </div>
       <div className="flex space-x-3 mt-4 items-center">
         <a href="https://github.com/latemarch" target="_blank">
           <BsGithub />
