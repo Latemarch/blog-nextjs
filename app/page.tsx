@@ -4,12 +4,10 @@ import PostList from '@/components/PostList'
 import ProjectCard from '@/components/ProjectCard'
 import { getItems } from '@/service/fireabse'
 
-export async function generateMetadata() {
-  return {
-    title: 'Latemarch ',
-    description: 'Project list Ive done',
-  }
-}
+// export const metadata = {
+//   title: 'Latemarch ',
+//   description: 'Project list Ive done',
+// }
 
 export default async function Home() {
   const allProjects = await getItems('projects')
