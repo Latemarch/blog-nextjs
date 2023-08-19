@@ -8,13 +8,28 @@ import { Analytics } from '@vercel/analytics/react'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
+  generator: 'Next.js',
   title: 'Latemarch',
   description: 'Latemarch blog',
+  referrer: 'origin-when-cross-origin',
+  applicationName: 'Latemarch - blog',
+  keywords: ['Next.js', 'blog', '기술 블로그', '자바스크립트'],
+  authors: { name: 'Latemarch', url: 'jjh@catholic.ac.kr' },
+  colorScheme: 'dark',
+  creator: 'Latemarch',
+  publisher: 'Latemarch',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
     title: 'Latemarch - blog',
+    siteName: 'Latemarch',
     description: 'Front-end developer',
-    url: 'https://latemarch.vercel.app/',
-    image: '/images/frontend.png',
+    image: { url: '/images/frontend.png', alt: 'My blog image' },
+    locale: 'kr_KR',
+    type: 'website',
   },
 }
 
