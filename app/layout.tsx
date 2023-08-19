@@ -26,7 +26,7 @@ export const metadata = {
   openGraph: {
     title: 'Latemarch - blog',
     siteName: 'Latemarch',
-    description: 'Front-end developer',
+    description: 'Latemarch - blog',
     image: { url: '/images/frontend.png', alt: 'My blog image' },
     locale: 'kr_KR',
     type: 'website',
