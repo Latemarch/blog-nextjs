@@ -3,49 +3,54 @@
 @tailwind utilities;
 
 @layer components {
-	@screen sm {
-		.columns-2-sm {
-			column-count: 2;
-			column-gap: 30px;
-		}
-	}
+  @screen sm {
+    .columns-2-sm {
+      column-count: 2;
+      column-gap: 30px;
+    }
+  }
 }
 
 .custom-markdown-style h1,
 h2,
 h3,
 h4 {
-	@apply dark:text-zinc-200;
+  @apply dark:text-zinc-200;
 }
 .custom-markdown-style p,
 .custom-markdown-style span {
-	@apply dark:text-Dspan;
+  @apply dark:text-Dspan;
 }
 .custom-markdown-style strong,
 .custom-markdown-style b {
-	@apply dark:text-white;
+  @apply dark:text-white;
 }
 .custom-markdown-style ul,
 li {
-	@apply dark:text-Dspan;
+  @apply dark:text-Dspan;
 }
 .custom-markdown-style a {
-	@apply dark:text-blue-400;
+  @apply dark:text-blue-400;
 }
 .custom-markdown-style blockquote {
-	@apply dark:text-red-200 border-cyan-200 dark:border-cyan-800 pr-4 mx-4 text-justify;
+  @apply dark:text-red-200 border-cyan-200 dark:border-cyan-800 pr-4 mx-4 text-justify;
 }
 /* 인라인코드 */
 .custom-markdown-style code {
-	@apply bg-gray-200 py-[0.2rem] rounded-md dark:bg-preColor dark:text-Dspan;
+  @apply bg-gray-200 py-[0.2rem] rounded-md dark:bg-preColor dark:text-Dspan;
 }
 
 /* 코드블럭 */
 .custom-markdown-style pre {
-	@apply rounded-xl p-2 bg-preColor;
+  @apply rounded-xl p-2 bg-preColor;
 }
 
 /*인용블럭*/
 /* .custom-markdown-style > blockquote {
 	@apply my-8;
 } */
+
+.giscus-frame-wrapper iframe {
+  /* @apply bg-gray-200 dark:bg-gray-800 */
+  /* #desiredColor 대신 원하는 색상의 코드를 입력합니다. 예: #ffffff */
+}

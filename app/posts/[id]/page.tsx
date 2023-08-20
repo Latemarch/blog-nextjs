@@ -1,7 +1,10 @@
+import Button from '@/components/Button'
+import Giscus from '@/components/Giscus'
 import MarkdowkVeiwer from '@/components/MarkdowkVeiwer'
 import { formatDate } from '@/components/PostCard'
 import Tag from '@/components/Tag'
 import { getItem, getItems } from '@/service/fireabse'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 interface Props {
@@ -43,6 +46,12 @@ export default async function page({ params: { id } }: Props) {
         </ul>
       </div>
       <MarkdowkVeiwer markdown={post.body} />
+      <div className="flex justify-end my-10">
+        <Link href="/posts" className="border rounded-lg">
+          <Button name="목록으로" />
+        </Link>
+      </div>
+      <Giscus />
       <div className="flex justify-end">
         <div className="flex items-center bg-zinc-200 dark:bg-Dtab my-10 rounded-md dark:text-zinc-100"></div>
       </div>

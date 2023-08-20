@@ -1,6 +1,9 @@
+import Button from '@/components/Button'
+import Giscus from '@/components/Giscus'
 import MarkdowkVeiwer from '@/components/MarkdowkVeiwer'
 import { formatDate } from '@/components/PostCard'
 import { getItem, getItems } from '@/service/fireabse'
+import Link from 'next/link'
 import { BsGithub } from 'react-icons/bs'
 import { FiLink } from 'react-icons/fi'
 
@@ -51,6 +54,12 @@ export default async function Project({ params: { id } }: Props) {
       </div>
 
       <MarkdowkVeiwer markdown={project.body} />
+      <div className="flex justify-end my-10">
+        <Link href="/projects" className="border rounded-lg">
+          <Button name="목록으로" />
+        </Link>
+      </div>
+      <Giscus />
       <div className="flex justify-end">
         <div className="flex items-center bg-zinc-200 dark:bg-Dtab my-5 rounded-md dark:text-zinc-100"></div>
       </div>
