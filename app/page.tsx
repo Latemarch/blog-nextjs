@@ -12,7 +12,7 @@ import { getItems } from '@/service/fireabse'
 export default async function Home() {
   const allProjects = await getItems('projects')
   const allPost = await getItems('posts')
-  const projects = allProjects.slice(0, 4)
+  const projects = allProjects.slice(0, 6)
   const posts = allPost.slice(0, 3)
   return (
     <div className="pb-20 text-zinc-600 dark:text-zinc-400">
