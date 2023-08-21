@@ -1,20 +1,58 @@
-name: GitHub Discussions Notifier
+# name: GitHub Discussions Notifier
+
+# on:
+#   discussion:
+#     types: [created]
+#   discussion_comment:
+#     types: [created]
+
+# jobs:
+#   notify-github-discussions:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: 8398a7/action-slack@v3
+#         with:
+#           status: ${{ job.status }}
+#           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest # selectable (default: repo,message)
+#         env:
+#           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+#         if: always() # Pick up events even if the job fails or is canceled.
+
+name: Notify Slack on New Discussion or Comment
 
 on:
   discussion:
-    types: [created]
+    types: [created, edited]
   discussion_comment:
-    types: [created]
+    types: [created, edited]
 
 jobs:
-  notify-github-discussions:
+  notify_slack:
     runs-on: ubuntu-latest
-    steps:
-      - uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest # selectable (default: repo,message)
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
-        if: always() # Pick up events even if the job fails or is canceled.
 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Send Slack notification
+        uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          custom_payload: |
+            {
+              text: "New GitHub Discussion Activity",
+              attachments: [{
+                "author_name": "${{ github.actor }}",
+                "title": "${{ github.event.discussion.title }}",
+                "text": "${{ github.event.discussion.body }}",
+                "color": "#36a64f",
+                "fallback": "New discussion activity in ${{ github.repository }}",
+                "actions": [{
+                  "type": "button",
+                  "text": "View Discussion",
+                  "url": "${{ github.event.discussion.html_url }}"
+                }]
+              }]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
