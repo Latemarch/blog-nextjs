@@ -1,36 +1,24 @@
-name: Slack alert for dev branch
+name: GitHub Discussions Notifier
 
 on:
-  push:
-    branches:
-      - dev
-      - feature/*
-
-  pull_request:
-    branches:
-      - dev
-      - feature/*
+  discussion:
+    types: [created]
+  discussion_comment:
+    types: [created]
 
 jobs:
-  build:
+  notify-github-discussions:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
+      - name: Post to a Slack channel
+        id: slack
+        uses: slackapi/slack-github-action@v1.24.0
         with:
-          java-version: '11'
-          distribution: 'adopt'
-
-      - name: action-slack
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          author_name: Sloth Backend - dev
-          fields: repo,commit,message,author # action,eventName,ref,workflow,job,took 추가할 수 있음
-          mention: here
-          if_mention: failure,cancelled
+          # Slack channel id, channel name, or user id to post message.
+          # See also: https://api.slack.com/methods/chat.postMessage#channels
+          # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
+          channel-id: ${{secrets.SLACK_CHANNEL_ID}}
+          # For posting a simple plain text message
+          slack-message: "GitHub build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
-        if: always() # Pick up events even if the job fails or is canceled.
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
