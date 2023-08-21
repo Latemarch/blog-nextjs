@@ -1,58 +1,61 @@
-# name: GitHub Discussions Notifier
-
-# on:
-#   discussion:
-#     types: [created]
-#   discussion_comment:
-#     types: [created]
-
-# jobs:
-#   notify-github-discussions:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: 8398a7/action-slack@v3
-#         with:
-#           status: ${{ job.status }}
-#           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest # selectable (default: repo,message)
-#         env:
-#           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
-#         if: always() # Pick up events even if the job fails or is canceled.
-
-name: Notify Slack on New Discussion or Comment
+name: GitHub Discussions Notifier
 
 on:
   discussion:
-    types: [created, edited]
+    types: [created]
   discussion_comment:
-    types: [created, edited]
+    types: [created]
 
 jobs:
-  notify_slack:
+  notify-github-discussions:
     runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Send Slack notification
-        uses: 8398a7/action-slack@v3
-        with:
-          status: custom
-          custom_payload: |
+     status: custom
+      custom_payload: |
+        {
+        "text": "New Discussion Alert!",
+        "attachments": [{
+          "author_name": "${{ github.event.discussion.user.login }}",
+          "title": "${{ github.event.discussion.title }}",
+          "text": "${{ github.event.discussion.body }}",
+          "fields": [
             {
-              text: "New GitHub Discussion Activity",
-              attachments: [{
-                "author_name": "${{ github.actor }}",
-                "title": "${{ github.event.discussion.title }}",
-                "text": "${{ github.event.discussion.body }}",
-                "color": "#36a64f",
-                "fallback": "New discussion activity in ${{ github.repository }}",
-                "actions": [{
-                  "type": "button",
-                  "text": "View Discussion",
-                  "url": "${{ github.event.discussion.html_url }}"
-                }]
-              }]
+              "title": "Category",
+              "value": "${{ github.event.discussion.category.name }}",
+              "short": true
+            },
+            {
+              "title": "State",
+              "value": "${{ github.event.discussion.state }}",
+              "short": true
+            },
+            {
+              "title": "Author Association",
+              "value": "${{ github.event.discussion.author_association }}",
+              "short": true
+            },
+            {
+              "title": "URL",
+              "value": "<${{ github.event.discussion.html_url }}|View on GitHub>",
+              "short": false
             }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          ],
+          "actions": [{
+            "type": "button",
+            "text": "View Discussion",
+            "url": "${{ github.event.discussion.html_url }}",
+            "style": "primary"
+          }]
+          }]
+        }
+      
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+    # steps:
+    #   - uses: 8398a7/action-slack@v3
+    #     with:
+    #       status: ${{ job.status }}
+    #       fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest # selectable (default: repo,message)
+    #     env:
+    #       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+    #     if: always() # Pick up events even if the job fails or is canceled.
+
