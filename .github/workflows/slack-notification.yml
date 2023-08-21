@@ -1,18 +1,9 @@
-name: GitHub Discussions Notifier
-
-on:
-  discussion:
-    types: [created]
-  discussion_comment:
-    types: [created]
-
-jobs:
-  notify-github-discussions:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: ostk0069/github-discussions-notifier@v0.0.2
-        with:
-          SLACK_CHANNEL_ID: ${{secrets.SLACK_CHANNEL_ID}}
-          SLACK_BOT_TOKEN: ${{secrets.SLACK_BOT_TOKEN}}
-          send-discussion-create: true
-          send-discussion-comment: false
+name: Giscus
+steps:
+  - uses: 8398a7/action-slack@v3
+    with:
+      status: ${{ job.status }}
+      fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest # selectable (default: repo,message)
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+    if: always() # Pick up events even if the job fails or is canceled.
