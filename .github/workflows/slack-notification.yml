@@ -1,4 +1,4 @@
-name: GitHub Discussions Notifier
+name: Discussions Notifier
 
 on:
   discussion:
