@@ -10,45 +10,11 @@ jobs:
   notify-github-discussions:
     # runs-on: ubuntu-latest
     with:
-     status: custom
+      status: custom
       custom_payload: |
         {
-        "text": "New Discussion Alert!",
-        "attachments": [{
-          "author_name": "${{ github.event.discussion.user.login }}",
-          "title": "${{ github.event.discussion.title }}",
-          "text": "${{ github.event.discussion.body }}",
-          "fields": [
-            {
-              "title": "Category",
-              "value": "${{ github.event.discussion.category.name }}",
-              "short": true
-            },
-            {
-              "title": "State",
-              "value": "${{ github.event.discussion.state }}",
-              "short": true
-            },
-            {
-              "title": "Author Association",
-              "value": "${{ github.event.discussion.author_association }}",
-              "short": true
-            },
-            {
-              "title": "URL",
-              "value": "<${{ github.event.discussion.html_url }}|View on GitHub>",
-              "short": false
-            }
-          ],
-          "actions": [{
-            "type": "button",
-            "text": "View Discussion",
-            "url": "${{ github.event.discussion.html_url }}",
-            "style": "primary"
-          }]
-          }]
+          "text": "New Discussion Alert!",
         }
-      
     env:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
     # steps:
@@ -59,4 +25,3 @@ jobs:
     #     env:
     #       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
     #     if: always() # Pick up events even if the job fails or is canceled.
-
