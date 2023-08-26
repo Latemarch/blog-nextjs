@@ -13,7 +13,7 @@ export const metadata = {
   description: 'Latemarch blog',
   referrer: 'origin-when-cross-origin',
   applicationName: 'Latemarch - blog',
-  keywords: ['Next.js', 'blog', '기술 블로그', '자바스크립트'],
+  keywords: ['Next.js', 'blog', '기술 블로그', '자바스크립트','latemarch'],
   authors: { name: 'Latemarch', url: 'jjh@catholic.ac.kr' },
   colorScheme: 'dark',
   creator: 'Latemarch',
