@@ -7,6 +7,7 @@ export default async function page() {
       <InputPW>
         <EditprojectForm />
       </InputPW>
+      <div>what the func</div>
     </div>
   )
 }

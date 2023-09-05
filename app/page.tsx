@@ -1,8 +1,8 @@
-import { BsGithub } from 'react-icons/bs'
-import { AiFillFolderOpen, AiOutlineMail } from 'react-icons/ai'
-import PostList from '@/components/PostList'
-import ProjectCard from '@/components/ProjectCard'
-import { getItems } from '@/service/fireabse'
+import { BsGithub } from "react-icons/bs";
+import { AiFillFolderOpen, AiOutlineMail } from "react-icons/ai";
+import PostList from "@/components/PostList";
+import ProjectCard from "@/components/ProjectCard";
+import { getItems } from "@/service/fireabse";
 
 // export const metadata = {
 //   title: 'Latemarch ',
@@ -10,10 +10,10 @@ import { getItems } from '@/service/fireabse'
 // }
 
 export default async function Home() {
-  const allProjects = await getItems('projects')
-  const allPost = await getItems('posts')
-  const projects = allProjects.slice(0, 6)
-  const posts = allPost.slice(0, 3)
+  const allProjects = await getItems("projects");
+  const allPost = await getItems("posts");
+  const projects = allProjects.slice(0, 6);
+  const posts = allPost.slice(0, 3);
   return (
     <div className="pb-20 text-zinc-600 dark:text-zinc-400">
       <h1 className="text-4xl mb-4 text-h1 dark:text-Dh1">
@@ -57,5 +57,5 @@ export default async function Home() {
         </ul>
       </div>
     </div>
-  )
+  );
 }

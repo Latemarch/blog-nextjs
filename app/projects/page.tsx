@@ -1,13 +1,13 @@
-import ProjectCard from '@/components/ProjectCard'
-import { getItems } from '@/service/fireabse'
+import ProjectCard from "@/components/ProjectCard";
+import { getItems } from "@/service/fireabse";
 export async function generateMetadata() {
   return {
-    title: 'Latemarch | Projects',
-    description: 'Project list Ive done',
-  }
+    title: "Latemarch | Projects",
+    description: "Project list Ive done",
+  };
 }
 export default async function Projects() {
-  const projects = await getItems('projects')
+  const projects = await getItems("projects");
   return (
     <section className="pb-20">
       <div className="mb-16">
@@ -30,5 +30,5 @@ export default async function Projects() {
             ))}
       </ul>
     </section>
-  )
+  );
 }
